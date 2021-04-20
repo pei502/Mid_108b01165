@@ -64,8 +64,28 @@ def contact(request):
         form = forms.ContactForm(request.POST)
         if form.is_valid():
             message = "感謝您的來信"
+            user_name = form.cleaned_data['user_name']
+            user_city = form.cleaned_data['user_city']
+            user_school = form.cleaned_data['user_school']
+            user_email = form.cleaned_data['user_email']
+            user_message = form.cleaned_data['user_message']
         else:
             message = "請檢查您輸入的資訊是否正確"
     else:
         form = forms.ContactForm()
     return render(request, 'contact.html', locals())
+
+
+def post2db(request):
+    if request.method == 'POST':
+        post_form = forms.PostForm(request.POST)
+        if post_form.is_valid():
+            message = "您的訊息已儲存，要等管理者啟用後才看得到喔。"
+            post_form.save()
+        else:
+            message = '如要張貼訊息，則每一個欄位都要填...'
+    else:
+        post_form = forms.PostForm()
+        message = '如要張貼訊息，則每一個欄位都要填...'
+
+    return render(request, 'post2db.html', locals())
