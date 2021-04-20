@@ -2,6 +2,9 @@
 {% extends "base.html" %}
 {% block title %}我有話要說{% endblock %}
 {% block content %}
+    {% if urid %}
+    <h3>User ID = {{ urid }}, Password = {{ urpass }}</h3>
+{% endif %}
 <div class='container'>
 {% if message %}
     <div class='alert alert-warning'>{{ message }}</div>
